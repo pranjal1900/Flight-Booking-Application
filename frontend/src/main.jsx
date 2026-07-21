@@ -6,13 +6,16 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContextProvider } from "./context/authContext.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google"
-const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+const CLIENT_ID =
+  import.meta.env.VITE_GOOGLE_CLIENT_ID ||
+  "1083427389142-dummyclientid.apps.googleusercontent.com";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <>
     <ToastContainer />
     <AuthContextProvider>
       <GoogleOAuthProvider clientId={CLIENT_ID}>
-      <App />
+        <App />
       </GoogleOAuthProvider>
     </AuthContextProvider>
   </>

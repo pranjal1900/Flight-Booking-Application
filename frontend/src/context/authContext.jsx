@@ -1,13 +1,21 @@
 import React, { createContext, useEffect, useReducer } from "react";
 
+const getStoredUser = () => {
+  try {
+    const item = localStorage.getItem("user");
+    return item && item !== "undefined" && item !== "null"
+      ? JSON.parse(item)
+      : null;
+  } catch (err) {
+    return null;
+  }
+};
+
 const initialState = {
-  user:
-    localStorage.getItem("user") !== "undefined"
-      ? JSON.parse(localStorage.getItem("user"))
-      : null,
+  user: getStoredUser(),
   token: localStorage.getItem("token") || null,
   isAdmin: localStorage.getItem("isAdmin") || null,
-  isUserLoggedIn: true ? localStorage.getItem("token") !== null : false,
+  isUserLoggedIn: !!localStorage.getItem("token"),
 };
 
 export const authContext = createContext(initialState);
