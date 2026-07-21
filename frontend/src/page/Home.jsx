@@ -8,10 +8,9 @@ import BookTicketBox from "../components/BookTicketBox";
 import HomeTicketBookingBox from "../components/HomeTicketBookingBox";
 import { useGoogleLogin, googleLogout } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import { BACKENDURL } from "../Config/Config";
 
 const Home = () => {
-  // Define your backend URL
-  const BACKENDURL = "http://localhost:5001"; // Adjust this to your backend URL
 
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
