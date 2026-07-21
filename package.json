@@ -1,4 +1,9 @@
 {
+  "name": "flight-booking-root",
+  "scripts": {
+    "start": "node backend/index.js",
+    "build": "cd backend && npm install"
+  },
   "dependencies": {
     "@react-oauth/google": "^0.12.2",
     "jwt-decode": "^4.0.0"

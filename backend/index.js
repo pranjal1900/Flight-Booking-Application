@@ -7,14 +7,6 @@ import flightRoute from "./Routes/flights.js";
 import bookingRoute from "./Routes/booking.js";
 import ticketRoute from "./Routes/tickets.js";
 import multer from "multer";
-let createCanvas, loadImage;
-try {
-  const canvasMod = await import("canvas");
-  createCanvas = canvasMod.createCanvas;
-  loadImage = canvasMod.loadImage;
-} catch (e) {
-  console.log("Canvas native module not available.");
-}
 import jsQR from "jsqr";
 import { google } from "googleapis";
 
