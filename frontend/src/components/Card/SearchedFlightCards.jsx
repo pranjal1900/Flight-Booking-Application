@@ -27,31 +27,28 @@ const SearchedFlightCards = ({ flight }) => {
   };
 
   const calcDuration = (departTime, arriveTime) => {
-    // Parse departure and arrival times
-    const [departHour, departMinute] = departTime.split(":").map(Number);
-    const [arriveHour, arriveMinute] = arriveTime.split(":").map(Number);
+    const parseTime = (timeStr) => {
+      // Handles both "06:00 AM" and "14:30" formats
+      const parts = timeStr.trim().split(" ");
+      const [hourStr, minuteStr] = parts[0].split(":");
+      let hour = parseInt(hourStr, 10);
+      const minute = parseInt(minuteStr, 10) || 0;
+      const period = parts[1] ? parts[1].toUpperCase() : null;
+      if (period === "PM" && hour !== 12) hour += 12;
+      if (period === "AM" && hour === 12) hour = 0;
+      return hour * 60 + minute;
+    };
 
-    // Calculate total minutes for departure and arrival
-    const departTotalMinutes = departHour * 60 + departMinute;
-    let arriveTotalMinutes = arriveHour * 60 + arriveMinute;
+    let departMins = parseTime(departTime);
+    let arriveMins = parseTime(arriveTime);
 
-    // Check if arrival time is earlier than departure time (crosses midnight)
-    if (arriveTotalMinutes < departTotalMinutes) {
-      // Add 24 hours worth of minutes to arrival time
-      arriveTotalMinutes += 24 * 60;
-    }
+    if (arriveMins < departMins) arriveMins += 24 * 60;
 
-    // Calculate the duration
-    let durationMinutes = arriveTotalMinutes - departTotalMinutes;
+    const diff = arriveMins - departMins;
+    const hours = Math.floor(diff / 60);
+    const mins = diff % 60;
 
-    // Calculate hours and minutes
-    const durationHour = Math.floor(durationMinutes / 60);
-    const durationMinute = durationMinutes % 60;
-
-    // Format the duration
-    const formattedDuration = `${durationHour}h ${durationMinute}m`;
-
-    return formattedDuration;
+    return mins > 0 ? `${hours}h ${mins}m` : `${hours}h`;
   };
 
   return (
