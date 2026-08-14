@@ -72,13 +72,12 @@ export const getCheckoutSession = async (req, res) => {
       
       session = {
         id: `mock_session_${bookingUID}`,
-       url: `http://localhost:5173/checkout-page?session_id=mock_session_{bookingUID}&success=true`,
+        url: `${process.env.CLIENT_SITE_URL || "http://localhost:5173/"}checkout-page?session_id=mock_session_${bookingUID}&success=true`,
         payment_status: "paid",
         customer_email: user.email,
         client_reference_id: req.params.flightId,
         amount_total: flight.price * numPassengers * 100,
         currency: "inr",
-        // Mock metadata for testing
         metadata: {
           flightId: req.params.flightId,
           userId: user._id.toString(),
